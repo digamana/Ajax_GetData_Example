@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+@section scripts{
+    <script>
+    $(document).ready(function () {
+        AjaxDEMO()
+    });
+        function AjaxDEMO() {
+ 
+            $.ajax({
+                async: true,
+                global: false,
+                url: '@Url.Action("GetDataDemo", "Home")',
+                method: 'Get',
+                data: { strKW: 'A' },
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (i) {
+                        console.log(`${data[i].Id}  ${data[i].Name}` );
+                    });
+                },
+                beforeSend: function () { },
+                complete: function () {
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        }
+    </script>
+}
